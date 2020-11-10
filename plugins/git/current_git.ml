@@ -215,3 +215,10 @@ module Local = struct
     let heads = Ref_map.empty in
     { repo; head; heads }
 end
+
+module GP = Current_cache.Output(Push)
+let push ~endpoint ~target_branch commit =
+  let key = Push.Key.v ~endpoint ~target_branch in
+  Current.component "push" |>
+  let> commit = commit in
+  GP.set () key commit

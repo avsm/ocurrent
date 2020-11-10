@@ -44,6 +44,10 @@ val clone : schedule:Current_cache.Schedule.t -> ?gref:string -> string -> Commi
 
 val fetch : Commit_id.t Current.t -> Commit.t Current.t
 
+val push : endpoint:string -> target_branch:string -> Commit.t Current.t -> unit Current.t
+(** [push ~endpoint ~target_branch commit] will [git push] the local [commit] to the
+    Git endpoint (e.g. [git@github.com:ocurrent/ocurrent]) to the target branch (e.g. [main]) *)
+    
 val with_checkout :
   ?pool:unit Current.Pool.t ->
   job:Current.Job.t ->

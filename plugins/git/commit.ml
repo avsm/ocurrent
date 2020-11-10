@@ -17,10 +17,13 @@ type t = {
 [@@@ocaml.warning "+3"]
 
 let id t = t.id
+let repo t = t.repo
 let hash t = t.id.Commit_id.hash
 let compare a b = String.compare (hash a) (hash b)
 let equal a b = String.equal (hash a) (hash b)
 let pp = Fmt.using hash Fmt.string
+
+let digest t = Yojson.Safe.to_string (to_yojson t)
 
 let pp_short f t =
   Fmt.string f @@ Astring.String.with_range ~len:6 (hash t)
